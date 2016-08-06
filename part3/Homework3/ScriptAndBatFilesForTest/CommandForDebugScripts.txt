@@ -1,0 +1,2 @@
+﻿cscript.exe /x testInfo.vbs
+cscript.exe /x testInfo.js

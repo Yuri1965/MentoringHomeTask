@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerManagerLib", "Homework3\PowerManagerLib.csproj", "{22CCC3A2-6AF2-4C31-AEA8-68812532E884}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestPowerManagerLib", "UnitTestPowerManagerLib\UnitTestPowerManagerLib.csproj", "{518EC8A8-EA7A-4C2E-A6CA-A60C2F0ABA56}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{22CCC3A2-6AF2-4C31-AEA8-68812532E884}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22CCC3A2-6AF2-4C31-AEA8-68812532E884}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22CCC3A2-6AF2-4C31-AEA8-68812532E884}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22CCC3A2-6AF2-4C31-AEA8-68812532E884}.Release|Any CPU.Build.0 = Release|Any CPU
+		{518EC8A8-EA7A-4C2E-A6CA-A60C2F0ABA56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{518EC8A8-EA7A-4C2E-A6CA-A60C2F0ABA56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{518EC8A8-EA7A-4C2E-A6CA-A60C2F0ABA56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{518EC8A8-EA7A-4C2E-A6CA-A60C2F0ABA56}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
