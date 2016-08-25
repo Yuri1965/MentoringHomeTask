@@ -53,7 +53,7 @@ namespace ImageMerger
                 Stop(key);
                 
                 var delayedTokenSource = new CancellationTokenSource();
-                var task = RunDelayedActionAync(delay, action, delayedTokenSource.Token);
+                var task = RunDelayedActionAsync(delay, action, delayedTokenSource.Token);
                 tasks[key] = new DelayedAction(task, delayedTokenSource);
             }
         }
@@ -73,7 +73,7 @@ namespace ImageMerger
             }
         }
 
-        private static async Task RunDelayedActionAync(TimeSpan delay, Action action, CancellationToken token)
+        private static async Task RunDelayedActionAsync(TimeSpan delay, Action action, CancellationToken token)
         {
             await Task.Delay(delay, token);
             action();
