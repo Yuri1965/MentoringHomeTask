@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageMergerService", "ImageMerger\ImageMergerService.csproj", "{756D6994-D10B-44F3-9211-06770284D86A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageMergerServerService", "ImageMergerServerService\ImageMergerServerService.csproj", "{EBE78810-F625-41D7-82FD-70D1F7641EE3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{756D6994-D10B-44F3-9211-06770284D86A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{756D6994-D10B-44F3-9211-06770284D86A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{756D6994-D10B-44F3-9211-06770284D86A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{756D6994-D10B-44F3-9211-06770284D86A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBE78810-F625-41D7-82FD-70D1F7641EE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBE78810-F625-41D7-82FD-70D1F7641EE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBE78810-F625-41D7-82FD-70D1F7641EE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBE78810-F625-41D7-82FD-70D1F7641EE3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
