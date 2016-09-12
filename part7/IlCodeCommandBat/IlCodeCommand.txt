@@ -1,0 +1,7 @@
+d:\Projects\EPAM\Mentoring\Debugging\HomeTask>ildasm /out="d:\Projects\EPAM\Mentoring\Debugging\Project\ConsoleApplication1\HomeWorkCrackMe\OriginalExe\CrackMe.
+il" "d:\Projects\EPAM\Mentoring\Debugging\Project\ConsoleApplication1\HomeWorkCrackMe\OriginalExe\CrackMe.exe"
+
+
+C:\Program Files (x86)\Microsoft Visual Studio 11.0>ilasm /exe /pdb /debug "d:\P
+rojects\EPAM\Mentoring\Debugging\Project\ConsoleApplication1\ConsoleApplication1
+\bin\Debug\CrackMe.il"
