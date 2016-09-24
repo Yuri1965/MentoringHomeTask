@@ -26,12 +26,19 @@ namespace TestProjectProfiling
         [TestMethod]
         public void TestMethod2()
         {
+            //пароль и соль
             var pass = "zczbxbh7";
             var salt = "45678958asdfghty";
             var saltBytes = new UTF8Encoding(false).GetBytes(salt.ToCharArray(), 0, 16);
+            //кол-во итераций при генерации хеша от пароля
+            int iterationCount = 10000;
 
+            //кол-во итераций цикла для проверки скорости работы методов
+            int forCount = 100;
+            //служебные переменные для пароля
             string hashPass = "";
             string tmpPass = "";
+
             
             // Create new stopwatch
             Stopwatch stopwatch = new Stopwatch();
@@ -40,10 +47,10 @@ namespace TestProjectProfiling
             GC.Collect();
             // Begin timing
             stopwatch.Start();
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < forCount; i++)
             {
                 tmpPass = pass + i.ToString();
-                hashPass = GeneratePasswordHashUsingSalt(tmpPass, saltBytes, true, 10000);
+                hashPass = GeneratePasswordHashUsingSalt(tmpPass, saltBytes, true, iterationCount);
             }
             // Stop timing
             stopwatch.Stop();
@@ -57,10 +64,10 @@ namespace TestProjectProfiling
             GC.Collect();
             // Begin timing
             stopwatch.Start();
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < forCount; i++)
             {
                 tmpPass = pass + i.ToString();
-                hashPass = GeneratePasswordHashUsingSalt(tmpPass, saltBytes, false, 10000);
+                hashPass = GeneratePasswordHashUsingSalt(tmpPass, saltBytes, false, iterationCount);
             }
             // Stop timing
             stopwatch.Stop();
