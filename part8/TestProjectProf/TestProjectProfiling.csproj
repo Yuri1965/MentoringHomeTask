@@ -6,8 +6,8 @@
     <ProjectGuid>{5D6A65A7-A501-4410-8EE5-FB38D28D4B80}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestProjectProf</RootNamespace>
-    <AssemblyName>TestProjectProf</AssemblyName>
+    <RootNamespace>TestProjectProfiling</RootNamespace>
+    <AssemblyName>TestProjectProfiling</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -51,6 +51,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="MyDeriveBytes.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
