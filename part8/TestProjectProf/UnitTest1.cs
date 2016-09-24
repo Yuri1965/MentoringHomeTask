@@ -2,11 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Security.Cryptography;
 using System.Text;
-using System.Linq;
 using System.Diagnostics;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Threading;
 
 namespace TestProjectProfiling
 {
@@ -32,7 +28,7 @@ namespace TestProjectProfiling
         {
             var pass = "zczbxbh7";
             var salt = "45678958asdfghty";
-            var saltBytes = new System.Text.UTF8Encoding(false).GetBytes(salt.ToCharArray(), 0, 16);
+            var saltBytes = new UTF8Encoding(false).GetBytes(salt.ToCharArray(), 0, 16);
 
             string hashPass = "";
             string tmpPass = "";
