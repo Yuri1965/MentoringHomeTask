@@ -3,6 +3,7 @@ using PostSharp.Serialization;
 using System.Collections;
 using System.Reflection;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace ImageMerger
 {
@@ -28,7 +29,11 @@ namespace ImageMerger
             if (!args.Method.IsConstructor && ((MethodInfo)args.Method).ReturnType != typeof(void))
             {
                 stringBuilder.Append(string.Format(" with return Value ({0}) = ", ((MethodInfo)args.Method).ReturnType.ToString()));
-                stringBuilder.Append(string.Join(", ", args.ReturnValue));
+
+                //сериализация результата метода
+                stringBuilder.Append(JsonConvert.SerializeObject(args.ReturnValue));
+
+                //stringBuilder.Append(string.Join(", ", args.ReturnValue));
             }
 
             LoggerUtil.logger.Info(stringBuilder.ToString());
@@ -49,9 +54,14 @@ namespace ImageMerger
                 MethodParamFormatter.AppendGenericArguments(stringBuilder, genericArguments);
             }
 
-            var arguments = args.Arguments;
-            var paramsMethod = args.Method.GetParameters();
-            MethodParamFormatter.AppendArguments(stringBuilder, arguments, paramsMethod);
+            //сериализация параметров метода
+            stringBuilder.Append('(');
+            stringBuilder.Append(JsonConvert.SerializeObject(args.Arguments));
+            stringBuilder.Append(')');
+
+            //var arguments = args.Arguments;
+            //var paramsMethod = args.Method.GetParameters();
+            //MethodParamFormatter.AppendArguments(stringBuilder, arguments, paramsMethod);
         }
     }
 }
