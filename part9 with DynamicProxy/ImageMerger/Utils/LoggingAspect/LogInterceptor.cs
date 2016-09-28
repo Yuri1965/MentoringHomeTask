@@ -38,10 +38,10 @@ namespace ImageMerger
             }
             finally
             {
-                stringBuilder.Append("Method executed:");
-
                 if (!invocation.Method.IsConstructor && ((MethodInfo)invocation.Method).ReturnType != typeof(void))
                 {
+                    stringBuilder.Append("Method executed:");
+
                     stringBuilder.AppendLine();
                     stringBuilder.Append(invocation.TargetType.FullName)
                         .Append(".")

@@ -1,4 +1,5 @@
 ﻿using System;
+using Castle.Core;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
 using Topshelf;
@@ -12,21 +13,27 @@ namespace ImageMerger
         /// </summary>
         public static void Main()
         {
-            IWindsorContainer container = new WindsorContainer();
-            container.Install(FromAssembly.This());
-            var appConfig = container.Resolve<IApplicationConfigParameters>();
-
             //если что-то не так с настройкой в файле конфигурации пишем в лог и завершаем работу приложения иначе запускаем сервис
+            var appConfig = new ApplicationConfigParameters();
+
             if (appConfig.IsConfigParamLoaded())
             {
                 HostFactory.Run(x =>
                 {
-                    x.Service<ImageWatcherService>(s =>
+                    x.Service<IImageWatcherService>(s =>
                     {
-                        s.ConstructUsing(() => new ImageWatcherService());
+                        s.ConstructUsing(() => LogContainerManager.Container.Resolve<IImageWatcherService>());
                         s.WhenStarted(service => service.Start());
                         s.WhenStopped(service => service.Stop());
                     });
+                    //x.Service<ImageWatcherService>(s =>
+                    //{
+                        
+
+                    //    s.ConstructUsing(() => new ImageWatcherService());
+                    //    s.WhenStarted(service => service.Start());
+                    //    s.WhenStopped(service => service.Stop());
+                    //});
 
                     x.UseNLog();
                     x.RunAsLocalService();
@@ -47,17 +54,18 @@ namespace ImageMerger
         }
     }
 
-    public class ImageWatcherService : IDisposable
+    [Interceptor("LogInterceptor")]
+    public class ImageWatcherService : IDisposable, IImageWatcherService
     {
         private readonly DirectoryWatchManager watcher;
         private bool isDisposed = false;
-        private IApplicationConfigParameters appConfig = new ApplicationConfigParameters();
+        private IApplicationConfigParameters appConfig;
 
         public ImageWatcherService()
         {
             //получим таймаут ожидания(в секундах) появления новых файлов в директориях из конфигурационного файла
             //это для того чтобы сохранить все что в памяти в виде книги и завершить поток (task), а не висеть постоянно и ждать
-            var appConfig = new ApplicationConfigParameters();
+            appConfig = LogContainerManager.Container.Resolve<IApplicationConfigParameters>();
             var delay = TimeSpan.FromSeconds(appConfig.GetDelayTime());
 
             watcher = new DirectoryWatchManager(delay);

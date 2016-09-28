@@ -10,8 +10,8 @@ namespace ImageMerger
         {
             container
                     .Register(Component.For<IInterceptor>().ImplementedBy<LogInterceptor>().Named("LogInterceptor"))
-                    .Register(Component.For<IApplicationConfigParameters>().ImplementedBy<ApplicationConfigParameters>().LifestyleTransient().Interceptors(InterceptorReference.ForKey("LogInterceptor")).Anywhere);
-
+                    .Register(Component.For<IApplicationConfigParameters>().ImplementedBy<ApplicationConfigParameters>().LifestyleTransient())
+                    .Register(Component.For<IImageWatcherService>().ImplementedBy<ImageWatcherService>().LifestyleTransient());
         }
     }
 }

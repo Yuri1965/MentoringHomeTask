@@ -106,6 +106,7 @@
   <ItemGroup>
     <Compile Include="Service\AsyncQueue.cs" />
     <Compile Include="Utils\Interfaces\IApplicationConfigParameters.cs" />
+    <Compile Include="Utils\Interfaces\IImageWatcherService.cs" />
     <Compile Include="Utils\LoggerUtil.cs" />
     <Compile Include="Service\NewFilesWatcher.cs" />
     <Compile Include="Service\DelayedTaskDictionary.cs" />
@@ -117,7 +118,7 @@
     <Compile Include="Service\DirectoryWatchManager.cs" />
     <Compile Include="Utils\LoggingAspect\LogInstaller.cs" />
     <Compile Include="Utils\LoggingAspect\LogInterceptor.cs" />
-    <Compile Include="Utils\LoggingAspect\LogResolver.cs" />
+    <Compile Include="Utils\LoggingAspect\LogContainerManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
