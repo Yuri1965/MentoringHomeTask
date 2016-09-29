@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Castle.Core;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,15 +7,16 @@ using System.Threading;
 
 namespace ImageMerger
 {
-    public class ImageProcessor
+    [Interceptor("LogInterceptor")]
+    public class ImageProcessor : IImageProcessor
     {
         private readonly string outputDirectory;
-        private readonly Dictionary<string, Tuple<ImageToPdfFileMerger, int>> prefixToState;
+        private readonly Dictionary<string, Tuple<IImageToPdfFileMerger, int>> prefixToState;
 
         public ImageProcessor(string outputDirectory)
         {
             this.outputDirectory = outputDirectory;
-            prefixToState = new Dictionary<string, Tuple<ImageToPdfFileMerger, int>>();
+            prefixToState = new Dictionary<string, Tuple<IImageToPdfFileMerger, int>>();
         }
 
         public void ProcessFile(string file)
@@ -30,11 +32,12 @@ namespace ImageMerger
             var prefix = fileDescription.Item1;
             var fileSeqNumber = fileDescription.Item2;
 
-            Tuple<ImageToPdfFileMerger, int> mergerAndLastSeqNumber;
+            Tuple<IImageToPdfFileMerger, int> mergerAndLastSeqNumber;
             if (!prefixToState.TryGetValue(prefix, out mergerAndLastSeqNumber))
             {
-                var newMerger = new ImageToPdfFileMerger(outputDirectory, prefix + fileSeqNumber.ToString() + ".pdf");
-                mergerAndLastSeqNumber = new Tuple<ImageToPdfFileMerger, int>(newMerger, fileSeqNumber - 1);
+                var newMerger = LogContainerManager.Container.Resolve<IImageToPdfFileMerger>(
+                    new { outputDirectory = this.outputDirectory, pdfFileName = prefix + fileSeqNumber.ToString() + ".pdf" });
+                mergerAndLastSeqNumber = new Tuple<IImageToPdfFileMerger, int>(newMerger, fileSeqNumber - 1);
             }
 
             var merger = mergerAndLastSeqNumber.Item1;
@@ -42,14 +45,16 @@ namespace ImageMerger
             if (lastSeqNumber != fileSeqNumber - 1)
             {
                 SaveResult(prefix, merger);
-                merger = new ImageToPdfFileMerger(outputDirectory, prefix + fileSeqNumber.ToString() + ".pdf");
+
+                merger = LogContainerManager.Container.Resolve<IImageToPdfFileMerger>(
+                    new { outputDirectory = this.outputDirectory, pdfFileName = prefix + fileSeqNumber.ToString() + ".pdf" });
             }
 
             if (merger.AddImageFile(file))
-                prefixToState[prefix] = new Tuple<ImageToPdfFileMerger, int>(merger, fileSeqNumber);
+                prefixToState[prefix] = new Tuple<IImageToPdfFileMerger, int>(merger, fileSeqNumber);
         }
 
-        private void SaveResult(string prefix, ImageToPdfFileMerger merger)
+        private void SaveResult(string prefix, IImageToPdfFileMerger merger)
         {
             merger.SavePdfFile();
         }

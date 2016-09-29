@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Castle.Core;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace ImageMerger
 {
-    public class DirectoryWatchManager : IDisposable
+    [Interceptor("LogInterceptor")]
+    public class DirectoryWatchManager : IDisposable, IDirectoryWatchManager
     {
         private class DirectoryWatchTask : IDisposable
         {
@@ -99,7 +101,7 @@ namespace ImageMerger
             return new DirectoryWatchTask(task, cancellationTokenSource);
         }
 
-        private async Task DoWatchInputDirectoryAsync(string inputDirectory, string outputDirectory, CancellationToken token)
+        private async Task DoWatchInputDirectoryAsync(string inDirectory, string outDirectory, CancellationToken token)
         {
             try
             {
@@ -108,14 +110,14 @@ namespace ImageMerger
                 AsyncQueue<string> queue = new AsyncQueue<string>(token);
 
                 // Класс для обработки полученных изображений
-                var imageProcessor = new ImageProcessor(outputDirectory);
+                var imageProcessor = LogContainerManager.Container.Resolve<IImageProcessor>(new { outputDirectory = outDirectory });
 
                 try
                 {
                     // Сначала обработаем существующие файлы
                     await Task.Factory.StartNew(() =>
                     {
-                        var files = Directory.GetFiles(inputDirectory);
+                        var files = Directory.GetFiles(inDirectory);
                         Array.Sort(files);
 
                         foreach (var file in files)
@@ -130,7 +132,7 @@ namespace ImageMerger
                     Action<string> newFileHandler = newFile => { queue.Enqueue(newFile); };
                     // Теперь будем следить за появлением новых файлов
                     using (var prefixSavers = new DelayedTaskDictionary())
-                    using (new NewFilesWatcher(inputDirectory, newFileHandler))
+                    using (new NewFilesWatcher(inDirectory, newFileHandler))
                     {
                         while (true)
                         {

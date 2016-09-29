@@ -11,7 +11,10 @@ namespace ImageMerger
             container
                     .Register(Component.For<IInterceptor>().ImplementedBy<LogInterceptor>().Named("LogInterceptor"))
                     .Register(Component.For<IApplicationConfigParameters>().ImplementedBy<ApplicationConfigParameters>().LifestyleTransient())
-                    .Register(Component.For<IImageWatcherService>().ImplementedBy<ImageWatcherService>().LifestyleTransient());
+                    .Register(Component.For<IImageWatcherService>().ImplementedBy<ImageWatcherService>().LifestyleTransient())
+                    .Register(Component.For<IDirectoryWatchManager>().ImplementedBy<DirectoryWatchManager>().LifestyleTransient())
+                    .Register(Component.For<IImageProcessor>().ImplementedBy<ImageProcessor>().LifestyleTransient())
+                    .Register(Component.For<IImageToPdfFileMerger>().ImplementedBy<ImageToPdfFileMerger>().LifestyleTransient());
         }
     }
 }

@@ -57,7 +57,7 @@ namespace ImageMerger
     [Interceptor("LogInterceptor")]
     public class ImageWatcherService : IDisposable, IImageWatcherService
     {
-        private readonly DirectoryWatchManager watcher;
+        private readonly IDirectoryWatchManager watcher;
         private bool isDisposed = false;
         private IApplicationConfigParameters appConfig;
 
@@ -68,7 +68,7 @@ namespace ImageMerger
             appConfig = LogContainerManager.Container.Resolve<IApplicationConfigParameters>();
             var delay = TimeSpan.FromSeconds(appConfig.GetDelayTime());
 
-            watcher = new DirectoryWatchManager(delay);
+            watcher = LogContainerManager.Container.Resolve<IDirectoryWatchManager>(new { delayBeforeSave = delay });
         }
 
         public void Start()

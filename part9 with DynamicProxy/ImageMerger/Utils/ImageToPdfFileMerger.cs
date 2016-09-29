@@ -4,10 +4,12 @@ using System.IO;
 using MigraDoc.Rendering;
 using System.Collections.Generic;
 using System.Threading;
+using Castle.Core;
 
 namespace ImageMerger
 {
-    public class ImageToPdfFileMerger
+    [Interceptor("LogInterceptor")]
+    public class ImageToPdfFileMerger : IImageToPdfFileMerger
     {
         public const double PDF_PAGE_TOP_MARGIN = 0.10;
         public const double PDF_PAGE_BOTTOM_MARGIN = 0.10;

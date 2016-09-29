@@ -105,7 +105,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Service\AsyncQueue.cs" />
+    <Compile Include="Utils\Interfaces\IImageToPdfFileMerger.cs" />
     <Compile Include="Utils\Interfaces\IApplicationConfigParameters.cs" />
+    <Compile Include="Utils\Interfaces\IDirectoryWatchManager.cs" />
+    <Compile Include="Utils\Interfaces\IImageProcessor.cs" />
     <Compile Include="Utils\Interfaces\IImageWatcherService.cs" />
     <Compile Include="Utils\LoggerUtil.cs" />
     <Compile Include="Service\NewFilesWatcher.cs" />
